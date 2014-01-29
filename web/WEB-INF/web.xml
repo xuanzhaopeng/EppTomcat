@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>RepositoryAjaxServlet</servlet-name>
+        <servlet-class>fr.ece.epp.RepositoryAjaxServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RepositoryServlet</servlet-name>
+        <servlet-class>fr.ece.epp.RepositoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>testServlet</servlet-name>
+        <servlet-class>fr.ece.epp.testServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyServlet</servlet-name>
+        <servlet-class>fr.ece.epp.MyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>downloadServlet</servlet-name>
+        <servlet-class>fr.ece.epp.downloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RepositoryAjaxServlet</servlet-name>
+        <url-pattern>/RepositoryAjaxServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RepositoryServlet</servlet-name>
+        <url-pattern>/RepositoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>testServlet</servlet-name>
+        <url-pattern>/testServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyServlet</servlet-name>
+        <url-pattern>/MyServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>downloadServlet</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>300</session-timeout>
+    </session-config>
+</web-app>

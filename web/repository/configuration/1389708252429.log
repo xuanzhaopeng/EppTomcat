@@ -1,0 +1,12 @@
+!SESSION 2014-01-14 15:04:12.210 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_01
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Command-line arguments:  -console
+
+!ENTRY org.eclipse.osgi 4 0 2014-01-14 15:04:32.075
+!MESSAGE Bundle org.ece.bundles_1.0.0.201311072126 [1] is not active.
+
+!ENTRY org.eclipse.osgi 4 0 2014-01-14 15:04:32.075
+!MESSAGE Bundle org.eclipse.osgi_3.7.2.v20120110-1415 [0] is not active.

@@ -1,0 +1,12 @@
+!SESSION 2014-01-18 02:26:05.174 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_01
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Command-line arguments:  -console
+
+!ENTRY org.eclipse.equinox.ds 2 0 2014-01-18 02:26:40.264
+!MESSAGE [SCR] Enabling components of bundle org.ece.bundles did not complete in 30000 ms 
+
+!ENTRY org.eclipse.equinox.ds 2 0 2014-01-18 02:26:40.265
+!MESSAGE [SCR - WorkThread] Timeout occurred! Thread was blocked on processing [QueuedJob] WorkPerformer: org.eclipse.equinox.internal.ds.SCRManager@2f8dbcee; actionType 1
