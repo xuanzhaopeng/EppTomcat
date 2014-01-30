@@ -4,6 +4,7 @@
     Author     : xuanzhaopeng
 --%>
 
+<%@page import="fr.ece.epp.tools.Utils"%>
 <%@page import="java.security.MessageDigest"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.io.StringWriter"%>
@@ -13,8 +14,6 @@
 <%@ page import ="javax.sql.*" %>
 <%@page import="java.io.File"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="fr.ece.epp.tools.Utils" %>
-<%@ page import="fr.ece.epp.Mail" %>
 <%!
     public String getValue(String target) {
         try {
@@ -86,24 +85,17 @@
 
     String strFeature = request.getParameter("feature");
     String strRepo = request.getParameter("repo");
-    String strGroups = request.getParameter("groups");
     String version = request.getParameter("version");
-    String email = request.getParameter("email");
-    
-    Mail mail = new Mail();
     String path = "";
     String name = "";
     String value = getValue(strFeature + strRepo);
 
     String url = searchHistory(value, version);
-    String maildownloadUrl = "";
 
     if (url != null) {
         //do download
         foundCache = true;
-        downloadUrl = "."+url;
-        String[] groups = strGroups.split(",");
-        mail.sendMail(email, "http://127.0.0.1:8078/EppServer"+url, groups);
+        downloadUrl = "." + url;
     }
 
     if (!foundCache) {
@@ -114,7 +106,6 @@
         path = request.getServletContext().getRealPath("/build");
         name = request.getSession().getId();
         downloadUrl = "./download?id=" + name;
-        maildownloadUrl = "http://127.0.0.1:8078/EppServer/download?id=" + name;
         //Step  1  create folder
         System.out.println("[Create folder]");
         Utils.createFolder(path, name);
@@ -131,7 +122,15 @@
         //Step 4 copy install and modify
         System.out.println("[Create Install]");
         //Utils.copy(new File(path + "/install.bat"), new File(path + "/" + name));
-        Utils.writeBat(path + "/" + name + "/install.bat", version);
+
+        String nameScript = "";
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            nameScript = "install.bat";
+        } else if (System.getProperty("os.name").startsWith("Linux") || System.getProperty("os.name").startsWith("Mac")) {
+            nameScript = "install.sh";
+        }
+
+        Utils.writeScript(path + "/" + name +"/" + nameScript, version);
     }
 %>
 
@@ -190,23 +189,54 @@
                         Boolean hasError = false;
                         System.out.println("[Install]");
                         Runtime rt = Runtime.getRuntime();
-                        Process pr = rt.exec(path + "/" + name + "/install.bat");
-                        //Process pr = rt.exec("ping 192.168.1.9 -n 20");
-                        BufferedReader br = new BufferedReader(new InputStreamReader(
-                                pr.getInputStream()));
-                        String line = null;
-                        while ((line = br.readLine()) != null) {
-                            System.out.println(line);
-                            if(line.toLowerCase().contains("[error]")){
-                                hasError = true;
+                        Process pr;
+                        String nameScript = "";
+                        if (System.getProperty("os.name").startsWith("Windows")) {
+
+                            nameScript = "install.bat";
+                            pr = rt.exec(path + "/" + name + "/" + nameScript);
+
+                            BufferedReader br = new BufferedReader(new InputStreamReader(
+                                    pr.getInputStream()));
+
+                            String line = null;
+                            while ((line = br.readLine()) != null) {
+
+                                System.out.println(line);
+                                if (line.toLowerCase().contains("[error]")) {
+                                    hasError = true;
+                                }
+
+                                out.println("<h5>" + line + "</h5>");
+                                out.flush();
                             }
-                            out.println("<h5>" + line + "</h5>");
-                            out.flush();
-                        }
-                        if(!hasError){
-                            String[] groups = strGroups.split(",");
-                            mail.sendMail(email, maildownloadUrl, groups);
-                            insertHistory(name, value, version);
+
+                            if (!hasError) {
+                                insertHistory(name, value, version);
+                            }
+
+                        } else if (System.getProperty("os.name").startsWith("Linux") || System.getProperty("os.name").startsWith("Mac")) {
+                            nameScript = "install.sh";
+                            pr = rt.exec(path + "/" + name + "/" + nameScript);
+
+                            BufferedReader br = new BufferedReader(new InputStreamReader(
+                                    pr.getInputStream()));
+
+                            String line = null;
+                            while ((line = br.readLine()) != null) {
+
+                                System.out.println(line);
+                                if (line.toLowerCase().contains("error")) {
+                                    hasError = true;
+                                }
+
+                                out.println("<h5>" + line + "</h5>");
+                                out.flush();
+                            }
+
+                            if (!hasError) {
+                                insertHistory(name, value, version);
+                            }
                         }
                     }
                 %>
@@ -215,7 +245,7 @@
             <hr>
 
             <footer>
-                <p>? Company 2013</p>
+                <p>© Company 2013</p>
             </footer>
         </div> <!-- /container -->
 

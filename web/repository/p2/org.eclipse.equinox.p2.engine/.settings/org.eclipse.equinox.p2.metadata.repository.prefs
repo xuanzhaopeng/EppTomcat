@@ -546,6 +546,3 @@ repositories/http\:__wwwiti.cs.uni-magdeburg.de_iti_db_research_featureide_deplo
 repositories/http\:__wwwiti.cs.uni-magdeburg.de_iti_db_research_featureide_deploy/type=org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository
 repositories/http\:__wwwiti.cs.uni-magdeburg.de_iti_db_research_featureide_deploy/uri=http\://wwwiti.cs.uni-magdeburg.de/iti_db/research/featureide/deploy/
 repositories/http\:__wwwiti.cs.uni-magdeburg.de_iti_db_research_featureide_deploy/version=1.0.0
-repositories/https\:__dl-ssl.google.com_android_eclipse/enabled=true
-repositories/https\:__dl-ssl.google.com_android_eclipse/isSystem=false
-repositories/https\:__dl-ssl.google.com_android_eclipse/uri=https\://dl-ssl.google.com/android/eclipse/

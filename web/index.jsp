@@ -5,10 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="fr.ece.epp.Mail" %>
 
 <%
-    String redirectURL = "http://127.0.0.1/Admin/";
+    String redirectURL = "http://192.168.1.8/Admin/";
     response.sendRedirect(redirectURL);
 %>
 <!DOCTYPE html>

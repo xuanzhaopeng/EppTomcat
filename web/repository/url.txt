@@ -1,1 +1,1 @@
-https://dl-ssl.google.com/android/eclipse/
+http://download.eclipse.org/releases/indigo/
